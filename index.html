@@ -105,6 +105,7 @@
       flex-direction: column;
       justify-content: flex-start;
       padding: 10px 20px;
+      z-index: 1000;
     }
     .sidebar li:nth-child(1) {
       padding-left: 5px;
@@ -151,24 +152,44 @@
       margin: 0 10px; /* Optional: Add some spacing between items */
     }
 
-    @media(max-width: 400px){
-      .sidebar{
-        width: 100%;
-      }
+    .sidebar li ul.dropdown{
+        font-size: 12px;
+      position: relative;
+      width: 100%;
+      z-index: 999;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
     }
+
+    .sidebar li ul.dropdown .dd_items {
+      width: 100%;
+        padding: 10px;
+      display: flex;
+      flex-direction: column;
+
+    }
+
+    .sidebar li ul.dropdown li {
+        padding: 5px;
+        margin: 5px 0;
+    }
+
 
   /* ----------------------------------Main--------------------------------------- */
   .main_1 {
-    height: 150vh;
+    height: 80vh;
     background-color: #a5b7ce;
   }
 
+  
 
   /* ----------------------------------Main--------------------------------------- */
-.container{
+  .container{
 	max-width: 80vw;
 	margin:auto;
   /* background-color: #60142e; */
+
 }
 
 img {
@@ -186,6 +207,8 @@ ul{
     background: linear-gradient(to right, #012f6a, #1191e0b0);
     padding: 30px 0;
     text-align: left;
+    z-index: 1;
+
 }
 .footer-col{
     /* background: rgb(120, 120, 58); */
@@ -196,19 +219,15 @@ ul{
 	font-size: 1.5vw;
 	color: #ffffff;
 	text-transform: capitalize;
-	margin-bottom: 35px;
 	font-weight: 500;
-	position: relative;
+    z-index: 900;
 }
-.footer-col h4::before{
-	content: '';
-	position: absolute;
-	bottom: -10px;
-	background-color: #e91e63;
-	height: 2px;
-	box-sizing: border-box;
-	width: 50px;
+
+.footer-col p {
+    color: red;
+    margin-bottom: 20px;
 }
+
 .footer-col ul li:not(:last-child){
 	margin-bottom: 10px;
 }
@@ -267,7 +286,9 @@ ul{
 }
 /* -----------------------------Footer--------------------------- */
 
-/* -----------------------------Tablet and Moblie Style--------------------- */
+
+/* -----------------------------Tablet and Mobile style------------------- */
+
 @media(max-width: 900px){
       .hideOnMobile{
         display: none;
@@ -299,12 +320,32 @@ ul{
         height: 35px;
         width: 35px;
       }
+      .footer-col p {
+        margin-bottom: 10px;
+      }
 
     }
 
-  @media(max-width: 574px){
+  @media(max-width: 500px){
     .footer-col{
-    width: 100%;
+    width: 50%;
+    }
+    img {
+        width: 70px;
+    }
+    .footer-col h4{
+        font-size: 20px;
+    }
+    .footer-col ul li a{
+        font-size: 14px;
+    }
+    .footer-col .social-links a{
+        font-size: 15px;
+        height: 30px;
+        width: 30px;
+    }
+    .footer-col p {
+        margin-bottom: 5px;
     }
   }
 
@@ -316,7 +357,18 @@ ul{
       <ul class="sidebar">
         <li onclick=hideSidebar()><a href="#"><svg class="icon icon_1" xmlns="http://www.w3.org/2000/svg" height="26" viewBox="0 96 960 960" width="26"><path d="m249 849-42-42 231-231-231-231 42-42 231 231 231-231 42 42-231 231 231 231-42 42-231-231-231 231Z"/></svg></a></li>
         <li><a href="#" class="menu active">Home</a></li>
-        <li><a href="#" class="menu">About Us</a></li>
+        <li class="dropdown-toggle">
+            <a class="menu">About Us</a>
+            <ul class="dropdown">
+                <div class="dd_items">
+                  <li><a href="#" class="menu">Our Company</a></li>
+                  <li><a href="#" class="menu">Our Mission</a></li>
+                  <li><a href="#" class="menu">Our Vision</a></li>
+                  <li><a href="#" class="menu">Event</a></li>
+                  <li><a href="#" class="menu">Career</a></li>
+                </div>
+            </ul>
+        </li>
         <li><a href="#" class="menu">Product and Service</a></li>
         <li><a href="#" class="menu">Contact Us</a></li>
         <li><a href="#" class="menu">My Account</a></li>
@@ -343,26 +395,33 @@ ul{
       </ul>
     </nav>
     <script>
-      function showSidebar(){
-        const sidebar = document.querySelector('.sidebar')
-        sidebar.style.display = 'flex'
-      }
-      function hideSidebar(){
-        const sidebar = document.querySelector('.sidebar')
-        sidebar.style.display = 'none'
-      }
-    </script>
+        function showSidebar(){
+          const sidebar = document.querySelector('.sidebar')
+          sidebar.style.display = 'flex'
+        }
+        function hideSidebar(){
+          const sidebar = document.querySelector('.sidebar')
+          sidebar.style.display = 'none'
+        }
+  
+        document.querySelectorAll('.dropdown-toggle').forEach(item => {
+          item.addEventListener('click', function() {
+            this.querySelector('.dropdown').style.display = 'flex';
+          });
+        });
+      </script>
+  
   </header>
 
   <article class="main_1">
 
   </article>
-
   <footer class="footer">
     <div class="container">
         <div class="row">
             <div class="footer-col">
                 <h4>Fast One</h4>
+                <p>-----------</p>
                 <a href="index.html"><img src="/Img/Fast_One_Logo_No_txt.png" alt="Fast One Logo"></a>
                 <ul>
                     <li><a href="#"></a></li>
@@ -372,12 +431,14 @@ ul{
             </div>
             <div class="footer-col">
                 <h4>Location</h4>
+                <p>-----------</p>
                 <ul>
                     <li><a href="https://maps.app.goo.gl/VrnKHyFs5PPzgcPk8" target="_blank">#29, Mao Tse Toung Blvd, Sangkat Toul Tompoung ll, Khan Chamkarmorn, Phnom Penh</a></li>
                 </ul>
             </div>
             <div class="footer-col">
                 <h4>Contact Us</h4>
+                <p>-----------</p>
                 <ul>
                     <li><a>089 222 551</a></li>
                     <li><a>069 709 900</a></li>
@@ -385,13 +446,13 @@ ul{
             </div>
             <div class="footer-col">
                 <h4>follow us</h4>
+                <p>-----------</p>
                 <div class="social-links">
                     <a href="https://www.facebook.com/Fastonecambodia" target="_blank"><i class="fab fa-facebook-f"></i></a>
                     <a href="https://t.me/fastonecambodia" target="_blank"><i class="fab fa-telegram"></i></a>
                     <a href="https://www.tiktok.com/@fastonecambodia?_t=8lQgxDKLA94&_r=1" target="_blank"><i class="fab fa-tiktok"></i></a>
                     <a href="https://www.linkedin.com/company/fastonene/" target="_blank"><i class="fab fa-linkedin"></i></a>
                     <a href="https://www.instagram.com/fastonecambodia?igsh=cHE4Z215NHBpaGJ2" target="_blank"><i class="fab fa-instagram"></i></a>
-
                 </div>
             </div>
         </div>
